@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>愛知県ブース　ワークショップ エントリー受付</title>
+    <title>ワークショップ エントリー受付</title>
     <style>
         body {
             font-family: 'Helvetica Neue', Arial, sans-serif;
@@ -234,7 +234,7 @@
 <body>
 
     <div class="card">
-        <h1 id="app-title">愛知県ブース<br>ワークショップ<br>エントリー受付</h1>
+        <h1 id="app-title">ワークショップ<br>エントリー受付</h1>
         
         <div id="setup-view" style="display: none;">
             <p class="desc">ご希望の時間帯を選択し、<br>下部のボタンを押してください。</p>
@@ -253,7 +253,7 @@
             <div class="result-title win-title" id="win-badge-title">当選</div>
             
             <div class="ticket-banner">
-                ワークショップ参加整理券<br>9月27日(日)
+                ワークショップ参加整理券
             </div>
             
             <div class="result-time-container">
@@ -277,7 +277,7 @@
 
         <div id="result-lose" class="result-view lose-box">
             <div class="result-title lose-title">受付結果</div>
-            <p class="lose-desc" id="lose-message-text">申し訳ございません。ご希望の時間帯はお取りできませんでした。抽選はお一人様1日1回までです。愛知県ブース内の他のコンテンツでお楽しみください。</p>
+            <p class="lose-desc" id="lose-message-text">申し訳ございません。ご希望の時間帯はお取りできませんでした。</p>
             
             <div class="admin-meta" style="justify-content: center;">
                 <span id="lose-id-display">ID: --</span>
@@ -287,15 +287,15 @@
     </div>
 
     <script>
-        const GAS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbx7hhMiQda1Ehp-PjV1xP92ffVJi-U460s6LcAkS2HhA6Ck2zMQHmImI-I8zEexMDFxWw/exec";
+        const GAS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyNM_VTl6FpTSQf09g_2d-olzO9ADnT08k1bev_Benxjhc2XSqzUnHt5_Ios_FkQ2Q/exec";
 
         const masterData = [
-            { id: 0, label: "10:15～11:00", startRec: "09:30", endRec: "10:45" },
-            { id: 1, label: "11:00～11:45", startRec: "09:30", endRec: "10:45" },
-            { id: 2, label: "11:45～12:30", startRec: "09:30", endRec: "11:30" },
-            { id: 3, label: "13:30～14:15", startRec: "09:30", endRec: "13:15" },
-            { id: 4, label: "14:15～15:00", startRec: "09:30", endRec: "14:00" },
-            { id: 5, label: "15:00～15:45", startRec: "09:30", endRec: "14:45" }
+            { id: 0, label: "10:15～11:00", startRec: "09:45", endRec: "10:45" },
+            { id: 1, label: "11:00～12:00", startRec: "09:45", endRec: "10:45" },
+            { id: 2, label: "12:00～13:00", startRec: "09:45", endRec: "11:45" },
+            { id: 3, label: "14:00～15:00", startRec: "09:45", endRec: "13:45" },
+            { id: 4, label: "15:00～16:00", startRec: "09:45", endRec: "14:45" },
+            { id: 5, label: "16:00～16:45", startRec: "09:45", endRec: "15:45" }
         ];
 
         const getTodayDateString = () => {
@@ -325,7 +325,6 @@
                 localStorage.setItem(STORAGE_KEY_ID, userTicketId);
             }
 
-            // 日付が変わっていれば前日の結果をリセット（1日1回制限の自動更新）
             if (lastActiveDate !== todayStr) {
                 localStorage.removeItem(STORAGE_KEY_STATUS);
                 localStorage.removeItem(STORAGE_KEY_SLOT_TIME);
@@ -448,6 +447,7 @@
 
                 localStorage.setItem(STORAGE_KEY_DATE, getTodayDateString());
 
+                // 【改善箇所】新規・復元に関わらず、結果を描画し端末に再保存する
                 if (data.isWin) {
                     localStorage.setItem(STORAGE_KEY_STATUS, 'win');
                     localStorage.setItem(STORAGE_KEY_SLOT_TIME, data.slotTime);
@@ -494,4 +494,3 @@
     </script>
 </body>
 </html>
-
